@@ -32,7 +32,7 @@ let addStyles = () => {
   let style = document.createElement('style');
   document.head.appendChild(style);
   style.sheet.insertRule(`@font-face { font-family: 'pacificoregular'; src: url('pacifico-regular-webfont.woff2') format('woff2'), url('pacifico-regular-webfont.woff') format('woff'); font-weight: normal; font-style: normal; }`)
-  style.sheet.insertRule(`#buy-me-a-burretho { color: darkseagreen; font-family: 'pacificoregular'; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho { color: black; font-family: 'pacificoregular'; }`)
 
 }
 
