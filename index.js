@@ -5,6 +5,8 @@
 
 // user adds two script tags with two things in it - one is pulling this down and running it, other is variables for address and id to target
 
+// TODO need api that's just eth to wei
+
 const addr = '0x8d3e809Fbd258083a5Ba004a527159Da535c8abA'
 const domElementId = 'button-goes-here'
 
@@ -16,7 +18,6 @@ async function main() {
     // load the widget - get the element and add the contents
     // watch for a click
     let button = addButtonToDOM()
-
     button.addEventListener("click", makePayment)
   }
 }
@@ -47,34 +48,35 @@ let webThreeEnabled = () => {
   return false
 }
 
-async function usdToEth(usd) {
+async function usdToWei(usd) {
   let res = await window.fetch(`https://api.coinmarketcap.com/v1/ticker/ethereum/`)
   let json = await res.json()
   let priceUsd = json[0].price_usd
-  return usd/priceUsd
+  let eth = usd / priceUsd
+  let wei = eth * 10^18
+  console.log(wei);
+  return wei
 }
 
-async function transact(toAddr, amountEth) {
+async function transact(toAddr, amountWei) {
   let transactionParameters = {
     nonce: '0x00', // ignored by MetaMask
     to: toAddr,
     from: web3.eth.accounts[0],
-    value: amountEth
+    value: amountWei
   }
 
-  let res = await ethereum.sendAsync({
+  await ethereum.sendAsync({
     method: 'eth_sendTransaction',
     params: [transactionParameters],
     from: ethereum.selectedAddress,
   })
-
-  let json = await res.json()
-  console.log(json);
 }
 
 async function makePayment() {
   // get 5 usd in eth
-  let ethAmount = await usdToEth(5)
-  let txn = await transact(addr, ethAmount)
+  // let weiAmount = await usdToWei(5)
+  let weiAmount = "2000000000000"
+  let txn = await transact(addr, weiAmount)
 
 }
