@@ -8,14 +8,16 @@
 const addr = '0x8d3e809Fbd258083a5Ba004a527159Da535c8abA'
 const domElementId = 'button-goes-here'
 
+
 document.addEventListener("DOMContentLoaded", main)
 
 async function main() {
   if (webThreeEnabled()) {
     // load the widget - get the element and add the contents
     // watch for a click
-    addButtonToDOM()
+    let button = addButtonToDOM()
 
+    button.addEventListener("click", makePayment)
   }
 }
 
@@ -26,17 +28,18 @@ let addButtonToDOM = () => {
   button.innerHTML = `<div id="buy-me-a-burretho__contents"><img src="burrito.svg" /><p>Buy me a burretho</p></div>`
   el.insertBefore(button, el.firstChild)
   addStyles()
+  return button
 }
 
 let addStyles = () => {
   let style = document.createElement('style');
   document.head.appendChild(style);
   style.sheet.insertRule(`@font-face { font-family: 'pacificoregular'; src: url('pacifico-regular-webfont.woff2') format('woff2'), url('pacifico-regular-webfont.woff') format('woff'); font-weight: normal; font-style: normal; }`)
-  style.sheet.insertRule(`#buy-me-a-burretho { display: inline-block; color: black; font-family: 'pacificoregular'; font-size: 18px; height: 35px; width: 230px; border-radius: 10px; box-shadow: #dadada 2px 3px 4px 0px; background-color: pink; padding: 5px; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho { -webkit-filter: brightness(100%); display: inline-block; color: black; font-family: 'pacificoregular'; font-size: 18px; height: 35px; width: 230px; border-radius: 10px; box-shadow: #dadada 2px 3px 4px 0px; background-color: pink; padding: 5px; }`)
   style.sheet.insertRule(`#buy-me-a-burretho__contents { position: relative; top: -2px; margin: 0 auto; padding-left: 8px; }`)
   style.sheet.insertRule(`#buy-me-a-burretho p { display: inline-block; margin: 0 }`)
   style.sheet.insertRule(`#buy-me-a-burretho img { vertical-align: middle; width: 35px; }`)
-
+  style.sheet.insertRule(`#buy-me-a-burretho:hover { -webkit-filter: brightness(90%); -webkit-transition: all 1s ease; -moz-transition: all 1s ease; -o-transition: all 1s ease; -ms-transition: all 1s ease; transition: all 1s ease; }`)
 }
 
 let webThreeEnabled = () => {
@@ -51,12 +54,12 @@ async function usdToEth(usd) {
   return usd/priceUsd
 }
 
-async function signTxn(toAddr, amount) {
-  const transactionParameters = {
+async function transact(toAddr, amountEth) {
+  let transactionParameters = {
     nonce: '0x00', // ignored by MetaMask
-    to: toAddr, // Required except during contract publications.
-    from: web3.eth.accounts[0], // must match user's active address.
-    value: amount // Only required to send ether to the recipient from the initiating external account.
+    to: toAddr,
+    from: web3.eth.accounts[0],
+    value: amountEth
   }
 
   let res = await ethereum.sendAsync({
@@ -67,4 +70,11 @@ async function signTxn(toAddr, amount) {
 
   let json = await res.json()
   console.log(json);
+}
+
+async function makePayment() {
+  // get 5 usd in eth
+  let ethAmount = await usdToEth(5)
+  let txn = await transact(addr, ethAmount)
+
 }
