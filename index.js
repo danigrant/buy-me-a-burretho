@@ -23,7 +23,7 @@ let addButtonToDOM = () => {
   let el = document.getElementById(domElementId)
   let button = document.createElement('div')
   button.id = 'buy-me-a-burretho'
-  button.innerHTML = `<img src="" /><p>Buy me a burretho</p>`
+  button.innerHTML = `<div id="buy-me-a-burretho__contents"><img src="burrito.svg" /><p>Buy me a burretho</p></div>`
   el.insertBefore(button, el.firstChild)
   addStyles()
 }
@@ -32,7 +32,10 @@ let addStyles = () => {
   let style = document.createElement('style');
   document.head.appendChild(style);
   style.sheet.insertRule(`@font-face { font-family: 'pacificoregular'; src: url('pacifico-regular-webfont.woff2') format('woff2'), url('pacifico-regular-webfont.woff') format('woff'); font-weight: normal; font-style: normal; }`)
-  style.sheet.insertRule(`#buy-me-a-burretho { color: black; font-family: 'pacificoregular'; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho { display: inline-block; color: black; font-family: 'pacificoregular'; font-size: 18px; height: 35px; width: 230px; border-radius: 10px; box-shadow: #dadada 2px 3px 4px 0px; background-color: pink; padding: 5px; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho__contents { position: relative; top: -2px; margin: 0 auto; padding-left: 8px; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho p { display: inline-block; margin: 0 }`)
+  style.sheet.insertRule(`#buy-me-a-burretho img { vertical-align: middle; width: 35px; }`)
 
 }
 
