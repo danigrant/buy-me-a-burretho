@@ -36,10 +36,10 @@ let addStyles = () => {
   let style = document.createElement('style');
   document.head.appendChild(style);
   style.sheet.insertRule(`@font-face { font-family: 'pacificoregular'; src: url('pacifico-regular-webfont.woff2') format('woff2'), url('pacifico-regular-webfont.woff') format('woff'); font-weight: normal; font-style: normal; }`)
-  style.sheet.insertRule(`#buy-me-a-burretho { -webkit-filter: brightness(100%); display: inline-block; color: black; font-family: 'pacificoregular'; font-size: 18px; height: 35px; width: 230px; border-radius: 10px; box-shadow: #dadada 2px 3px 4px 0px; background-color: pink; padding: 5px; }`)
-  style.sheet.insertRule(`#buy-me-a-burretho__contents { position: relative; top: -2px; margin: 0 auto; padding-left: 8px; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho { -webkit-filter: brightness(100%); display: inline-block; color: black; font-family: 'pacificoregular'; font-size: 28px; height: 68px; width: 300px; border-radius: 10px; background: linear-gradient(180deg, #FBDD4A 0%, #FFD074 100%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); padding: 5px; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho__contents { position: relative; top: 3px; margin: 0 auto; padding-left: 8px; }`)
   style.sheet.insertRule(`#buy-me-a-burretho p { display: inline-block; margin: 0 }`)
-  style.sheet.insertRule(`#buy-me-a-burretho img { vertical-align: middle; width: 35px; }`)
+  style.sheet.insertRule(`#buy-me-a-burretho img { vertical-align: text-bottom; width: 45px; }`)
   style.sheet.insertRule(`#buy-me-a-burretho:hover { -webkit-filter: brightness(90%); -webkit-transition: all 1s ease; -moz-transition: all 1s ease; -o-transition: all 1s ease; -ms-transition: all 1s ease; transition: all 1s ease; }`)
 }
 
